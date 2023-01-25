@@ -200,6 +200,7 @@ class SpaceBudzMarket {
    *@private
    */
   async blockfrostRequest(endpoint, headers, body) {
+    console.log("this.provider.base", this.provider.base);
     return await fetch(this.provider.base + endpoint, {
       headers: {
         project_id: this.provider.projectId,
@@ -621,6 +622,9 @@ class SpaceBudzMarket {
     //   priceStep: parseFloat(p.price_step),
     // };
     //TODO: wait for blockfrost fix
+
+    console.log("p", p);
+
     this.protocolParameters = {
       linearFee: {
         minFeeA: p.min_fee_a.toString(),

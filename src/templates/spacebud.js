@@ -81,16 +81,16 @@ const SpaceBud = ({ pageContext: { spacebud } }) => {
     if (!txHash) return;
     PendingTransactionToast(toast);
     if (type) {
-      fetch("https://api.spacebudzbot.com/tweet", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + secrets.TWITTER_BOT_TOKEN,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: spacebud.id.toString(), type, lovelace }),
-      })
-        .then(console.log)
-        .catch(console.log);
+      // fetch("https://api.spacebudzbot.com/tweet", {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: "Bearer " + secrets.TWITTER_BOT_TOKEN,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ id: spacebud.id.toString(), type, lovelace }),
+      // })
+      //   .then(console.log)
+      //   .catch(console.log);
     }
     await market.current.awaitConfirmation(txHash);
     toast.closeAll();
@@ -102,7 +102,7 @@ const SpaceBud = ({ pageContext: { spacebud } }) => {
   const loadMarket = async () => {
     market.current = new Market(
       {
-        base: "https://cardano-mainnet.blockfrost.io/api/v0",
+        base: `https://${secrets.PROJECT_NET}.blockfrost.io/api/v0`,
         projectId: secrets.PROJECT_ID,
       },
       "addr1qxpxm8a0uxe6eu2m6fgdu6wqfclujtzyjdu9jw0qdxfjaz02h5ngjz7fftac5twlxj6jha4meenh6476m5xdwmeyh4hq0zeknx"
@@ -116,7 +116,7 @@ const SpaceBud = ({ pageContext: { spacebud } }) => {
     setOwner([]);
     const token = POLICY + toHex(`SpaceBud${spacebud.id}`);
     let addresses = await fetch(
-      `https://cardano-mainnet.blockfrost.io/api/v0/assets/${token}/addresses`,
+      `https://${secrets.PROJECT_NET}.blockfrost.io/api/v0/assets/${token}/addresses`,
       { headers: { project_id: secrets.PROJECT_ID } }
     ).then((res) => res.json());
     const fiatPrice = await fetch(

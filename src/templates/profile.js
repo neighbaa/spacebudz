@@ -35,7 +35,7 @@ const Profile = ({ pageContext: { spacebudz } }) => {
     setTokens(null);
     const tokens = { owned: [], bids: [], offers: [] };
     const amount = await fetch(
-      `https://cardano-mainnet.blockfrost.io/api/v0/addresses/${address}`,
+      `https://${secrets.PROJECT_NET}.blockfrost.io/api/v0/addresses/${address}`,
       { headers: { project_id: secrets.PROJECT_ID } }
     )
       .then((res) => res.json())
